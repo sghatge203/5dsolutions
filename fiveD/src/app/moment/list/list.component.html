@@ -1,1 +1,33 @@
-<p>list works!</p>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="table-responsive">
+                <table class="table table-hovered table striped">
+                    <thead>
+                        <tr>
+                            <th>Sr.NO</th>
+                            <th>Avatar</th>
+                            <th>Date</th>
+                            <th>Tags</th>
+                            <th>Comments</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of momentData;let i = index ">
+                            <td>{{i + 1}}</td>
+                            <td>{{item.image}}</td>
+                            <td>{{item.createAt}}</td>
+                            <td>{{item.tags}}</td>
+                            <td>{{item.comment}}</td>
+                            <td>
+                                <button (click)="editMoment(item._id)">Edit</button>
+                                <button (click)="deleteMoment(item._id)">Delete</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

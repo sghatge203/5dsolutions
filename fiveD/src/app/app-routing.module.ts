@@ -7,7 +7,7 @@ import { ListComponent } from './moment/list/list.component';
 const routes: Routes = [
   { path: '', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-  { path: 'all-moment', component: ListComponent },
+  { path: 'list-moment', component: ListComponent },
 ];
 
 @NgModule({
