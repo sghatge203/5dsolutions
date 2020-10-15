@@ -1,0 +1,29 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="login-form">
+                <h4 class="org-name">5D Solutions</h4>
+                <h4 class="mt-5">Create Moment Assignment by 5D Solutions</h4>
+                <p class="text-muted">Welcome back, Please login to your account</p>
+                <div class="login-card mt-5">
+                    <form #login="ngForm" (ngSubmit)="onSubmit(login)" novalidate>
+                        <div class="form-group">
+                            <input type="text" name="email" class="form-control custom-input" placeholder="Email"  ngModel required #email="ngModel" [email]="true" />
+                        </div>
+                        <div class="form-group">
+                            <input type="password" name="password" class="form-control custom-input" ngModel required #email="ngModel"
+                                placeholder="Password" />
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn custom-login-button mr-4">Login</button>
+                            <button type="button" class="btn custom-signup-button">
+                                Sign Up
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-8 bg-banner"></div>
+    </div>
+</div>
