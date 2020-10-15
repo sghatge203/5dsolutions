@@ -10,8 +10,9 @@ const apiRoutes = {
     login: `${apiEndPoint}/auth/login`,
     register: `${apiEndPoint}/auth/register`,
     addMoment: `${apiEndPoint}/user/add-moment`,
-    updateMoment: `${apiEndPoint}/user/update-moment`,
+    updateMoment: `${apiEndPoint}/user/update-moment:/id`,
     getListMoment: `${apiEndPoint}/user/list-moment`,
-    deleteMoment: `${apiEndPoint}/user/delete-moment`
+    deleteMoment: `${apiEndPoint}/user/delete-moment:/id`,
+    getMomentById:`${apiEndPoint}/user/get-moment-id:/id`
 }
 module.exports = apiRoutes

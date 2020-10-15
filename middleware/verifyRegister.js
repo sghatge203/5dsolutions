@@ -8,10 +8,10 @@
 const db = require('../models/index.model');
 const User = db.auth;
 
-const verifyDuplicateEmail = (req, res) => {
+const verifyDuplicateEmail = (req, res,next) => {
     User.findOne({
         email: req.body.email
-    }).exec(err, user => {
+    }).exec((err, user) => {
         if (err) {
             return res.status(200)
                 .send({

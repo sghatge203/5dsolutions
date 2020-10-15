@@ -1,7 +1,3 @@
-const authController = require("../controllers/auth.controller");
-const apiRoutes = require("../global/routes.constant");
-const verifyRegister = require("../middleware/verifyRegister");
-
 /**
  * @author [Sagar Ghatge]
  * @email [sagarghatge203@gmail.com]
@@ -9,7 +5,12 @@ const verifyRegister = require("../middleware/verifyRegister");
  * @modify date 2020-10-15 22:32:08
  * @desc [Authentication routes]
  */
+const authController = require("../controllers/auth.controller");
+const apiRoutes = require("../global/routes.constant");
+const verifyRegister = require("../middleware/verifyRegister");
+
 module.exports = function (app) {
+    console.log('auth')
     app.use(function (req, res, next) {
         res.header(
             "Access-Control-Allow-Headers",

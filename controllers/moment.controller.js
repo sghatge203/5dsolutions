@@ -91,10 +91,32 @@ const deleteMoment = (req, res) => {
         }
     });
 }
+
+// Delete moment by Id
+const getMomentById = (req, res) => {
+    let id = req.params.id;
+    Moment.findOne({ _id: id }, function (err, data) {
+        if (err) {
+            return res.status(200).send({
+                status: 500,
+                message: err,
+                response: null
+            })
+        }
+        else {
+            return res.status(200).send({
+                status: 200,
+                message: "Successfully fetched Moment",
+                response: data
+            })
+        }
+    });
+}
 // Exports all the functions
 module.exports = {
     createMoment,
     getListOfMoments,
     deleteMoment,
-    updateMoment
+    updateMoment,
+    getMomentById
 }

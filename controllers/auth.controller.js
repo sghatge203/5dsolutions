@@ -11,7 +11,7 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require("bcryptjs");
 const crypto = require("crypto");
 const User = require('../models/auth.model');
-
+console.log('controller auth')
 //  User Registration function
 
 const registerUser = (req, res) => {
@@ -20,7 +20,9 @@ const registerUser = (req, res) => {
     let city = req.body.city;
     let fullName = req.body.fullName
     let activateToken = crypto.randomBytes(20).toString('hex');
-    if (!email && !password && fullName && city) {
+    console.log('user',email,password,fullName,city)
+
+    if (!email && !password && !fullName && !city) {
         return res.status(200).send({
             status: 404,
             message: "All the fields are required",
@@ -30,9 +32,12 @@ const registerUser = (req, res) => {
     const user = new User({
         email: email,
         password: bcrypt.hashSync(password, 8),
+        fullName:fullName,
+        city:city,
         activateToken: activateToken,
     });
     user.save((err, user) => {
+        console.log('dataa',user)
         if (err) {
             return res.status(200).send({
                 status: 500,
@@ -51,6 +56,7 @@ const registerUser = (req, res) => {
 }
 
 const loginUser = (req, res) => {
+    console.log('login user')
     let emailId = req.body.email;
     let password = req.body.password;
     User.findOne({ email: emailId }, function (err, user) {

@@ -46,8 +46,8 @@ app.use(passport.session());
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Routes
-require('./routes/auth.routes');
-require('./routes/moment.routes')
+require('./routes/auth.routes')(app);
+require('./routes/moment.routes')(app)
 
 // Create server
 const PORT = process.env.SERVER_PORT;
