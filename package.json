@@ -4,7 +4,7 @@
   "description": "5d Slotions Assignments",
   "main": "server.js",
   "scripts": {
-    "start":"node ./server.js",
+    "start": "node ./server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -18,10 +18,12 @@
   },
   "homepage": "https://github.com/sghatge203/5dsolutions#readme",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "cookie-parser": "^1.4.5",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
     "mongod": "^2.0.0",
     "mongoose": "^5.10.9",
     "morgan": "^1.10.0",

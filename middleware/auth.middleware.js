@@ -32,6 +32,9 @@ const verifyToken = (req, res) => {
         next();
     });
 }
-module.exports = {
+const authJwt = {
     verifyToken
+}
+module.exports = {
+    authJwt
 }
