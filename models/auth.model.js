@@ -14,9 +14,6 @@
          password:String,
          fullName:String,
          city:String,
-         image:String,
-         comment:String,
-         tags:String,
          createAt: { type: Date, default: Date.now },
      })
  )

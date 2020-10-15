@@ -10,5 +10,5 @@ mongoose.Promise = global.Promise;
 const db = {};
 db.mongoose = mongoose;
 db.auth = require('./auth.model');
-
+db.moment = require('./moment.model');
 module.exports = db;

@@ -96,7 +96,12 @@ const loginUser = (req, res) => {
     })
 }
 
+const logoutUser = (req, res) => {
+
+}
+
 module.exports = {
     registerUser,
-    loginUser
+    loginUser,
+    logoutUser
 }
