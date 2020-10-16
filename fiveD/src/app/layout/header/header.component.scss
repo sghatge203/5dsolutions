@@ -1,0 +1,18 @@
+.user-name {
+  border-right: 1px solid blue;
+  color: #17a2b8;
+  font-size: 0.7em;
+  padding-right: 1em;
+}
+.user-logout {
+  color: #17a2b8;
+  font-size: 0.7em;
+  padding-left: 1em;
+  cursor: pointer;
+}
+.user-logout:hover{
+    text-decoration: underline;
+}
+.custom-navbar {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}

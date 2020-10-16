@@ -1,12 +1,12 @@
-<div class="container card">
-    <div class="row card-body">
-        <div class="col-md-12">
-            <button class="btn custom-login-button float-right" type="button" [routerLink]="['/add-moment']">Add
+<app-header></app-header>
+<div class="container-fluid ">
+    <div class="row card-body ">
+        <div class="col-md-12 card-table">
+            <label class="text-center pt-2">List of Moments</label>
+            <button class="btn custom-login-button float-right mb-2" type="button" [routerLink]="['/add-moment']">Add
                 +</button>
-        </div>
-        <div class="col-md-12">
             <div class="table-responsive">
-                <table class="table table-hovered table striped">
+                <table class="table table-hover table striped font-size-08em">
                     <thead>
                         <tr>
                             <th>Sr.NO</th>
@@ -14,19 +14,19 @@
                             <th>Date</th>
                             <th>Tags</th>
                             <th>Comments</th>
-                            <th>Action</th>
+                            <th class="text-center">Action</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr *ngFor="let item of momentData;let i = index ">
                             <td>{{i + 1}}</td>
-                            <td>{{item.image}}</td>
-                            <td>{{item.createAt}}</td>
+                            <td><img class="moment-image" src={{item.image}} alt={{item.createAt}} /></td>
+                            <td>{{item.createAt | date:'M/d/yy, h:mm a'}}</td>
                             <td>{{item.tags}}</td>
                             <td>{{item.comment}}</td>
-                            <td>
-                                <button class="btn btn-outline-info mr-2" (click)="editMoment(item._id)">Edit</button>
-                                <button class="btn btn-outline-danger" (click)="deleteMoment(item._id)">Delete</button>
+                            <td class="action-col">
+                            <fa-icon [icon]="faEdit" class="edit-icon mr-2" (click)="editMoment(item._id)"></fa-icon>
+                            <fa-icon [icon]="faTrash" class="delete-icon" (click)="deleteMoment(item._id)"></fa-icon>
                             </td>
                         </tr>
                     </tbody>

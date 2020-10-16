@@ -11,6 +11,9 @@ import { MomentService } from 'src/services/moment.service';
   styleUrls: ['./add.component.scss'],
 })
 export class AddComponent implements OnInit {
+  fileInput;
+  showError = false;
+  base64: any;
   constructor(
     public momentService: MomentService,
     public router: Router,
@@ -18,8 +21,27 @@ export class AddComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {}
+
+  getImage(event) {
+    this.fileInput = event.target.files[0];
+    if (!this.checkValidImage(this.fileInput)) {
+      this.getBase64(this.fileInput);
+    }
+  }
+  checkValidImage(fileInput) {
+    if (fileInput.type.includes('image')) {
+      this.showError = false;
+    } else {
+      this.showError = true;
+    }
+    return this.showError;
+  }
+
   onSubmit = (f: NgForm) => {
-    this.momentService.createMomentService(f.value).subscribe(
+    const formData: FormData = new FormData();
+    formData.append('data', JSON.stringify(f.value));
+    formData.append('image', this.fileInput, this.fileInput.name);
+    this.momentService.createMomentService(formData).subscribe(
       (result) => {
         if (result && result.status === 200) {
           this.router.navigate(['/list-moment']);
@@ -33,4 +55,14 @@ export class AddComponent implements OnInit {
       }
     );
   };
+  getBase64(file) {
+    var reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => {
+      this.base64 = reader.result;
+    };
+    reader.onerror = (error) => {
+      console.log('Error: ', error);
+    };
+  }
 }

@@ -12,7 +12,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { ToastrModule } from 'ngx-toastr';
 import { AddComponent } from './moment/add/add.component';
 import { EditComponent } from './moment/edit/edit.component';
-
+import { HeaderComponent } from './layout/header/header.component';
+import { FontAwesomeModule,FaIconLibrary } from '@fortawesome/angular-fontawesome';
 @NgModule({
   declarations: [
     AppComponent,
@@ -21,9 +22,11 @@ import { EditComponent } from './moment/edit/edit.component';
     ListComponent,
     AddComponent,
     EditComponent,
+    HeaderComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, NgbModule, FormsModule,HttpClientModule,ToastrModule.forRoot(),BrowserAnimationsModule],
+  imports: [BrowserModule, AppRoutingModule, NgbModule, FormsModule,HttpClientModule,ToastrModule.forRoot(),BrowserAnimationsModule,FontAwesomeModule],
   providers: [],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule {
+}

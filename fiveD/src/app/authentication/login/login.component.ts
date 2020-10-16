@@ -23,7 +23,8 @@ export class LoginComponent implements OnInit {
   onSubmit = (f: NgForm) => {
     this.authService.loginService(f.value).subscribe((result) => {
       if (result && result.status === 200) {
-        localStorage.setItem('AUTH_TOKEN', result.response.token);
+        localStorage.setItem('AUTH_TOKEN', result.response.accessToken);
+        localStorage.setItem('AUTH_EMAIL', result.response.email);
         this.router.navigate(['/list-moment']);
       } else {
         this.toastr.info('', result.message, toasterConfig);

@@ -3,6 +3,8 @@ import { MomentService } from 'src/services/moment.service';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { toasterConfig } from '../../../global/helper';
+import { faEdit,faTrash } from '@fortawesome/free-solid-svg-icons';
+
 @Component({
   selector: 'app-list',
   templateUrl: './list.component.html',
@@ -11,14 +13,19 @@ import { toasterConfig } from '../../../global/helper';
 export class ListComponent implements OnInit {
   momentData = [];
   metaData = {};
+  faEdit=faEdit
+  faTrash=faTrash
   constructor(
     public momentService: MomentService,
     public router: Router,
     private toastr: ToastrService
-  ) {}
+  ) {
+    this.getAllMoment();
+  }
+  
 
   ngOnInit(): void {
-    this.getAllMoment();
+  
   }
 
   getAllMoment() {

@@ -13,6 +13,9 @@ import { Router } from '@angular/router';
 export class EditComponent implements OnInit {
   metaData = {};
   id;
+  base64;
+  fileInput;
+  showError = false
   constructor(
     public activatedRouter: ActivatedRoute,
     public momentService: MomentService,
@@ -24,6 +27,21 @@ export class EditComponent implements OnInit {
 
   ngOnInit(): void {
     this.getData();
+  }
+  getImage(event) {
+    this.fileInput = event.target.files[0];
+    if(!this.checkValidImage(this.fileInput)){
+    this.getBase64(this.fileInput);
+    }
+  }
+  checkValidImage(fileInput) {
+    console.log('fileInput', fileInput);
+    if (fileInput.type.includes('image')) {
+      this.showError = false;
+    } else {
+      this.showError = true;
+    }
+    return this.showError;
   }
   getData() {
     this.momentService.ediMomentService(this.id).subscribe(
@@ -41,7 +59,10 @@ export class EditComponent implements OnInit {
     );
   }
   onSubmit(f: NgForm) {
-    this.momentService.uppdateMomentService(f.value).subscribe(
+    const formData: FormData = new FormData();
+    formData.append('data',JSON.stringify(f.value));
+    formData.append('image', this.fileInput, this.fileInput.name);
+    this.momentService.uppdateMomentService(formData).subscribe(
       (result) => {
         if (result && result.status === 200) {
           this.router.navigate(['/list-moment']);
@@ -54,5 +75,15 @@ export class EditComponent implements OnInit {
         this.toastr.info('', 'Service Failed', toasterConfig);
       }
     );
+  }
+  getBase64(file) {
+    var reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => {
+      this.base64 = reader.result;
+    };
+    reader.onerror = (error) => {
+      console.log('Error: ', error);
+    };
   }
 }

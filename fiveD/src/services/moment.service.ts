@@ -8,11 +8,17 @@ import { Observable } from 'rxjs';
 })
 export class MomentService {
   public httpOptions;
+  public httpFileOptions;
   constructor(private http: HttpClient) {
     this.httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
         'x-access-token': localStorage.getItem('AUTH_TOKEN'),
+      }),
+    };
+    this.httpFileOptions = {
+      headers: new HttpHeaders({
+        'x-access-token': localStorage.getItem('AUTH_TOKEN')
       }),
     };
   }
@@ -27,13 +33,13 @@ export class MomentService {
   createMomentService(requestBody): Observable<any> {
     return this.http.post(
       environment.apiEndPoint + `user/add-moment`,requestBody,
-      this.httpOptions
+      this.httpFileOptions
     );
   }
   uppdateMomentService(requestBody): Observable<any> {
     return this.http.post(
       environment.apiEndPoint + `user/update-moment`,requestBody,
-      this.httpOptions
+      this.httpFileOptions
     );
   }
   deleteMomentService(id): Observable<any> {
