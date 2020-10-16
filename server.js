@@ -15,6 +15,7 @@ var logger = require('morgan');
 var cors = require('cors');
 var passport = require('passport');
 var mongo = require('mongodb').MongoClient;
+app.use(logger('dev'));
 require('dotenv').config();
 
 var db = require('./models/index.model');
@@ -36,14 +37,18 @@ app.set('views',path.join(__dirname,'views'));
 app.set('view engine', 'pug');
 
 // Use MiddleWares
-app.use(logger('dev'));
+
 app.use(express.json());
+// app.use(bodyParser.urlencoded({ extended: true })); 
+
 app.use(cors());
-app.use(express.urlencoded({extended:false}));
+// app.use(express.urlencoded({extended:false}));
+
 app.use(cookieParser());
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use('/moments', express.static(__dirname + '/moments'));
 
 // Routes
 require('./routes/auth.routes')(app);

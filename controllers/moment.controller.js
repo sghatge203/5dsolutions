@@ -6,33 +6,47 @@
  * @desc [Moments functions]
  */
 const Moment = require('../models/moment.model');
+var multiparty = require('multiparty');
+const readAndWriteFile = require('../helpers/fileUpload');
 
 // Create New Moment
 const createMoment = (req, res) => {
-    let image = req.body.image;
-    let comment = req.body.comment;
-    let tags = req.body.tags;
-    const moment = new Moment({
-        image: image,
-        comment: comment,
-        tags: tags,
-    });
-    moment.save((err, momentData) => {
-        if (err) {
-            return res.status(200).send({
-                status: 500,
-                message: err,
-                response: null
-            })
+    var form = new multiparty.Form();
+    form.parse(req, function (err, fields, files) {
+        let fieldData = JSON.parse(fields.data[0]);
+        let imageFile = files.image[0]
+        let file = imageFile
+        let getData = fieldData
+        var fullpath = file ? file.originalFilename : null;
+        var document = {
+            image: fullpath,
+            comment: getData.comment,
+            tags: getData.tags,
         }
-        else {
-            return res.status(200).send({
-                status: 200,
-                message: "Successfully Created new moment",
-                response: null
-            })
-        }
+        const moment = new Moment(document);
+        moment.save((err, package) => {
+            if (err) {
+                return res.status(200).send({
+                    status: 500,
+                    message: err,
+                    response: null
+                })
+            }
+            else {
+                var savePath = './public/moments/';
+                var singleImage = file
+                savePath += singleImage.originalFilename;;
+                readAndWriteFile(singleImage, savePath);
+                return res.status(200).send({
+                    status: 200,
+                    message: "Moment added succussfully.",
+                    response: null
+                })
+            }
+        })
+
     });
+
 }
 // get list of all moments
 const getListOfMoments = (req, res) => {
@@ -45,6 +59,10 @@ const getListOfMoments = (req, res) => {
             })
         }
         else {
+            list.forEach(element => {
+                element['image'] = process.env.IMAGE_API + 'moments/' + element.image
+            });
+            console.log('listData', list)
             return res.status(200).send({
                 status: 200,
                 message: "Successfully fetched all moments.",
@@ -55,21 +73,43 @@ const getListOfMoments = (req, res) => {
 }
 // Update moment by id
 const updateMoment = (req, res) => {
-    let updateObject = req.body;
-    let id = req.body._id
-    Moment.findOneAndUpdate(id, updateObject, { new: true }, function (err, updateData) {
-        if (err) {
-            return res.status(200).
-                send({ status: 500, message: err, response: null });
-        }
-        else {
-            return res.status(200).send({
-                status: 200,
-                message: "Moment updated successfully",
-                response: updateData
-            })
-        }
-    })
+    var form = new multiparty.Form();
+    form.parse(req, function (err, fields, files) {
+        let fieldData = JSON.parse(fields.data[0]);
+        let imageFile = files.image[0]
+        let file = imageFile
+        let getData = fieldData
+        // var fullpath = file ? file.originalFilename : null;
+        let updateObject = getData;
+        updateObject.image = file.originalFilename
+        let id = getData._id
+        Moment.findOneAndUpdate(id, updateObject, { new: true }, function (err, updateData) {
+            if (err) {
+                return res.status(200).
+                    send({ status: 500, message: err, response: null });
+            }
+            else {
+                var savePath = './public/moments/';
+                var singleImage = file
+                savePath += singleImage.originalFilename;
+                console.log('savepath',savePath)
+                readAndWriteFile(singleImage, savePath);
+                return res.status(200).send({
+                    status: 200,
+                    message: "Moment updated successfully",
+                    response: updateData
+                })
+            }
+        });
+
+    });
+
+
+
+
+
+
+
 }
 // Delete moment by Id
 const deleteMoment = (req, res) => {
@@ -95,7 +135,6 @@ const deleteMoment = (req, res) => {
 // Delete moment by Id
 const getMomentById = (req, res) => {
     let id = req.params.id;
-    console.log('id',id)
     Moment.findOne({ _id: id }, function (err, data) {
         if (err) {
             return res.status(200).send({
@@ -105,6 +144,7 @@ const getMomentById = (req, res) => {
             })
         }
         else {
+            data['image'] = process.env.IMAGE_API + 'moments/' + data.image
             return res.status(200).send({
                 status: 200,
                 message: "Successfully fetched Moment",

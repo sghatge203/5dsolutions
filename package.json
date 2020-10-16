@@ -19,6 +19,7 @@
   "homepage": "https://github.com/sghatge203/5dsolutions#readme",
   "dependencies": {
     "bcryptjs": "^2.4.3",
+    "body-parser": "^1.19.0",
     "cookie-parser": "^1.4.5",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
@@ -27,6 +28,8 @@
     "mongod": "^2.0.0",
     "mongoose": "^5.10.9",
     "morgan": "^1.10.0",
+    "multer": "^1.4.2",
+    "multiparty": "^4.2.2",
     "passport": "^0.4.1"
   }
 }

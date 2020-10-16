@@ -20,12 +20,32 @@ const registerUser = (req, res) => {
     let city = req.body.city;
     let fullName = req.body.fullName
     let activateToken = crypto.randomBytes(20).toString('hex');
-    console.log('user',email,password,fullName,city)
 
-    if (!email && !password && !fullName && !city) {
+    if (!email) {
         return res.status(200).send({
             status: 404,
-            message: "All the fields are required",
+            message: "Email Required",
+            response: null
+        });
+    }
+    if (!password) {
+        return res.status(200).send({
+            status: 404,
+            message: "Password Required",
+            response: null
+        });
+    }
+    if (!fullName) {
+        return res.status(200).send({
+            status: 404,
+            message: "Full Name is Required",
+            response: null
+        });
+    }
+    if (!city) {
+        return res.status(200).send({
+            status: 404,
+            message: "City is Required",
             response: null
         });
     }
@@ -37,7 +57,6 @@ const registerUser = (req, res) => {
         activateToken: activateToken,
     });
     user.save((err, user) => {
-        console.log('dataa',user)
         if (err) {
             return res.status(200).send({
                 status: 500,
