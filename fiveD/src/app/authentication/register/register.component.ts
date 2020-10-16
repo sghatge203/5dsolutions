@@ -26,11 +26,11 @@ export class RegisterComponent implements OnInit {
           this.router.navigate(['/']);
           this.toastr.info('', result.message, toasterConfig);
         } else {
-          this.toastr.info('', result.message, toasterConfig);
+          this.toastr.error('', result.message, toasterConfig);
         }
       },
       (error) => {
-        this.toastr.info('', 'Service Failed', toasterConfig);
+        this.toastr.error('', 'Service Failed', toasterConfig);
       }
     );
   };

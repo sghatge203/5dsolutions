@@ -27,10 +27,10 @@ export class LoginComponent implements OnInit {
         localStorage.setItem('AUTH_EMAIL', result.response.email);
         this.router.navigate(['/list-moment']);
       } else {
-        this.toastr.info('', result.message, toasterConfig);
+        this.toastr.error('', result.message, toasterConfig);
       }
       (error) => {
-        this.toastr.info('', 'Service Failed', toasterConfig);
+        this.toastr.error('', 'Service Failed', toasterConfig);
       };
     });
   };

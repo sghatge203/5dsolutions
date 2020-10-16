@@ -60,7 +60,7 @@ export class AddComponent implements OnInit {
           }
         },
         (error) => {
-          this.toastr.info('', 'Service Failed', toasterConfig);
+          this.toastr.error('', 'Service Failed', toasterConfig);
         }
       );
     }
