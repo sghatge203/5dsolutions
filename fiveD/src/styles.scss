@@ -31,6 +31,9 @@ body{
   color: #17a2b8;
 }
 .toast-error {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+.toast-info {
   background-color: #17a2b8;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }

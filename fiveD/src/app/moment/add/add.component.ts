@@ -37,24 +37,35 @@ export class AddComponent implements OnInit {
     return this.showError;
   }
 
+  validateForm(form) {
+    let formisValid = true;
+    if (!this.fileInput || !form.value.tags ||!form.value.comment) {
+      this.toastr.error('', 'All the fields are required', toasterConfig);
+      formisValid = false;
+    }
+    return formisValid;
+  }
   onSubmit = (f: NgForm) => {
-    const formData: FormData = new FormData();
-    formData.append('data', JSON.stringify(f.value));
-    formData.append('image', this.fileInput, this.fileInput.name);
-    this.momentService.createMomentService(formData).subscribe(
-      (result) => {
-        if (result && result.status === 200) {
-          this.router.navigate(['/list-moment']);
-          this.toastr.info('', result.message, toasterConfig);
-        } else {
-          this.toastr.info('', result.message, toasterConfig);
+    if (this.validateForm(f)) {
+      const formData: FormData = new FormData();
+      formData.append('data', JSON.stringify(f.value));
+      formData.append('image', this.fileInput, this.fileInput.name);
+      this.momentService.createMomentService(formData).subscribe(
+        (result) => {
+          if (result && result.status === 200) {
+            this.router.navigate(['/list-moment']);
+            this.toastr.info('', result.message, toasterConfig);
+          } else {
+            this.toastr.error('', result.message, toasterConfig);
+          }
+        },
+        (error) => {
+          this.toastr.info('', 'Service Failed', toasterConfig);
         }
-      },
-      (error) => {
-        this.toastr.info('', 'Service Failed', toasterConfig);
-      }
-    );
+      );
+    }
   };
+
   getBase64(file) {
     var reader = new FileReader();
     reader.readAsDataURL(file);
