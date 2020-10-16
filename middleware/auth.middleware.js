@@ -10,7 +10,7 @@ const db = require('../models/index.model');
 const User = db.auth;
 
 // verify user token
-const verifyToken = (req, res) => {
+const verifyToken = (req, res,next) => {
     let token = req.headers["x-access-token"]
     if (!token) {
         return res.status(200)

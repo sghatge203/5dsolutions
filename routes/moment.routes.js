@@ -19,10 +19,11 @@ module.exports = function (app) {
         );
         next();
     });
-
+    console.log('momet if')
     // Moments Routes declarations
     app.post(apiRoutes.addMoment, [authJwt.verifyToken], momentController.createMoment);
     app.post(apiRoutes.updateMoment, [authJwt.verifyToken], momentController.updateMoment);
-    app.post(apiRoutes.getListMoment, [authJwt.verifyToken], momentController.getListOfMoments);
-    app.post(apiRoutes.deleteMoment, [authJwt.verifyToken], momentController.deleteMoment);
+    app.get(apiRoutes.getListMoment, [authJwt.verifyToken], momentController.getListOfMoments);
+    app.delete(apiRoutes.deleteMoment, [authJwt.verifyToken], momentController.deleteMoment);
+    app.get(apiRoutes.getMommentId, [authJwt.verifyToken], momentController.getMomentById);
 }

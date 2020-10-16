@@ -56,8 +56,8 @@ const getListOfMoments = (req, res) => {
 // Update moment by id
 const updateMoment = (req, res) => {
     let updateObject = req.body;
-    let userId = updateObject.id
-    Moment.findOneAndUpdate(userId, updateObject, { new: true }, function (err, updateData) {
+    let id = req.body._id
+    Moment.findOneAndUpdate(id, updateObject, { new: true }, function (err, updateData) {
         if (err) {
             return res.status(200).
                 send({ status: 500, message: err, response: null });
@@ -95,6 +95,7 @@ const deleteMoment = (req, res) => {
 // Delete moment by Id
 const getMomentById = (req, res) => {
     let id = req.params.id;
+    console.log('id',id)
     Moment.findOne({ _id: id }, function (err, data) {
         if (err) {
             return res.status(200).send({
