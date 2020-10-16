@@ -11,7 +11,11 @@ import { Router } from '@angular/router';
   styleUrls: ['./edit.component.scss'],
 })
 export class EditComponent implements OnInit {
-  metaData = {};
+  metaData = {
+    tags:String,
+    comment:String,
+    image:String
+  };
   id;
   base64;
   fileInput;
