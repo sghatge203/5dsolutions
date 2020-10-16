@@ -10,6 +10,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { ToastrModule } from 'ngx-toastr';
+import { AddComponent } from './moment/add/add.component';
+import { EditComponent } from './moment/edit/edit.component';
 
 @NgModule({
   declarations: [
@@ -17,6 +19,8 @@ import { ToastrModule } from 'ngx-toastr';
     LoginComponent,
     RegisterComponent,
     ListComponent,
+    AddComponent,
+    EditComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, NgbModule, FormsModule,HttpClientModule,ToastrModule.forRoot(),BrowserAnimationsModule],
   providers: [],

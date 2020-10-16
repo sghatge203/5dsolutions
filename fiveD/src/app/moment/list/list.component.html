@@ -1,5 +1,9 @@
-<div class="container">
-    <div class="row">
+<div class="container card">
+    <div class="row card-body">
+        <div class="col-md-12">
+            <button class="btn custom-login-button float-right" type="button" [routerLink]="['/add-moment']">Add
+                +</button>
+        </div>
         <div class="col-md-12">
             <div class="table-responsive">
                 <table class="table table-hovered table striped">
@@ -21,8 +25,8 @@
                             <td>{{item.tags}}</td>
                             <td>{{item.comment}}</td>
                             <td>
-                                <button (click)="editMoment(item._id)">Edit</button>
-                                <button (click)="deleteMoment(item._id)">Delete</button>
+                                <button class="btn btn-outline-info mr-2" (click)="editMoment(item._id)">Edit</button>
+                                <button class="btn btn-outline-danger" (click)="deleteMoment(item._id)">Delete</button>
                             </td>
                         </tr>
                     </tbody>

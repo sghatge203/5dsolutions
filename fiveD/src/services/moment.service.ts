@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment.prod';
 import { Observable } from 'rxjs';
 
@@ -10,7 +10,7 @@ export class MomentService {
   public httpOptions;
   constructor(private http: HttpClient) {
     this.httpOptions = {
-      headers: new Headers({
+      headers: new HttpHeaders({
         'Content-Type': 'application/json',
         'x-access-token': localStorage.getItem('AUTH_TOKEN'),
       }),
@@ -26,13 +26,13 @@ export class MomentService {
 
   createMomentService(requestBody): Observable<any> {
     return this.http.post(
-      environment.apiEndPoint + `ser/add-moment`,requestBody,
+      environment.apiEndPoint + `user/add-moment`,requestBody,
       this.httpOptions
     );
   }
-  uppdateMomentService(id,requestBody): Observable<any> {
+  uppdateMomentService(requestBody): Observable<any> {
     return this.http.post(
-      environment.apiEndPoint + `user/update-moment/${id}`,requestBody,
+      environment.apiEndPoint + `user/update-moment`,requestBody,
       this.httpOptions
     );
   }
@@ -45,6 +45,12 @@ export class MomentService {
   getMomentById(id): Observable<any> {
     return this.http.get(
       environment.apiEndPoint + `user/update-moment/${id}`,
+      this.httpOptions
+    );
+  }
+  ediMomentService(id):Observable<any>{
+    return this.http.get(
+      environment.apiEndPoint + `user/get-moment-id/${id}`,
       this.httpOptions
     );
   }

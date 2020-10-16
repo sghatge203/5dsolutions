@@ -1,0 +1,28 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="login-card mt-5">
+                <form #edit="ngForm" (ngSubmit)="onSubmit(edit)" novalidate>
+                    <div class="form-group">
+                        <input type="file" name="image" class="form-control custom-input" ngModel required
+                            #image="ngModel" />
+                    </div>
+                    <div class="form-group">
+                        <input type="text" name="comment" class="form-control custom-input" placeholder="Comment"
+                            [(ngModel)]="metaData.comment" />
+                    </div>
+                    <div class="form-group">
+                        <input type="text" name="tags" class="form-control custom-input" placeholder="Tags"
+                            [(ngModel)]="metaData.tags" />
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn custom-login-button mr-4">Update</button>
+                        <button type="button" [routerLink]="['/list-moment']" class="btn custom-signup-button">
+                            Back
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
