@@ -4,6 +4,7 @@ import { AuthService } from 'src/services/auth.service';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { toasterConfig } from '../../../global/helper';
+import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-register',
@@ -12,6 +13,8 @@ import { toasterConfig } from '../../../global/helper';
 })
 export class RegisterComponent implements OnInit {
   userData = {};
+  loader= false
+  faSpinner=faSpinner
   constructor(
     public authService: AuthService,
     public router: Router,
@@ -20,8 +23,10 @@ export class RegisterComponent implements OnInit {
 
   ngOnInit(): void {}
   onSubmit = (f: NgForm) => {
+    this.loader =true
     this.authService.registerService(f.value).subscribe(
       (result) => {
+        this.loader =false
         if (result && result.status === 200) {
           this.router.navigate(['/']);
           this.toastr.info('', result.message, toasterConfig);
@@ -30,6 +35,7 @@ export class RegisterComponent implements OnInit {
         }
       },
       (error) => {
+        this.loader =false
         this.toastr.error('', 'Service Failed', toasterConfig);
       }
     );

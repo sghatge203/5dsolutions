@@ -18,7 +18,7 @@
                             [(ngModel)]="metaData.tags" />
                     </div>
                     <div class="form-group">
-                        <button type="submit" class="btn custom-login-button mr-4">Update</button>
+                        <button type="submit" class="btn custom-login-button mr-4">  <fa-icon *ngIf="loader" [icon]="faSpinner" class="edit-icon mr-2"></fa-icon> Update</button>
                         <button type="button" [routerLink]="['/list-moment']" class="btn custom-signup-button">
                             Back
                         </button>

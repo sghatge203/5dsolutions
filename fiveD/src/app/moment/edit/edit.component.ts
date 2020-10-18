@@ -5,6 +5,8 @@ import { MomentService } from 'src/services/moment.service';
 import { ToastrService } from 'ngx-toastr';
 import { toasterConfig } from '../../../global/helper';
 import { Router } from '@angular/router';
+import { faSpinner } from '@fortawesome/free-solid-svg-icons';
+
 @Component({
   selector: 'app-edit',
   templateUrl: './edit.component.html',
@@ -20,6 +22,8 @@ export class EditComponent implements OnInit {
   base64;
   fileInput;
   showError = false
+  loader = false
+  faSpinner = faSpinner
   constructor(
     public activatedRouter: ActivatedRoute,
     public momentService: MomentService,
@@ -66,8 +70,10 @@ export class EditComponent implements OnInit {
     const formData: FormData = new FormData();
     formData.append('data',JSON.stringify(f.value));
     formData.append('image', this.fileInput, this.fileInput.name);
+    this.loader = true
     this.momentService.uppdateMomentService(formData).subscribe(
       (result) => {
+        this.loader = false
         if (result && result.status === 200) {
           this.router.navigate(['/list-moment']);
           this.toastr.info('', result.message, toasterConfig);
@@ -76,6 +82,7 @@ export class EditComponent implements OnInit {
         }
       },
       (error) => {
+        this.loader = false
         this.toastr.info('', 'Service Failed', toasterConfig);
       }
     );

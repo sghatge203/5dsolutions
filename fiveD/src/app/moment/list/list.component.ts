@@ -3,7 +3,7 @@ import { MomentService } from 'src/services/moment.service';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { toasterConfig } from '../../../global/helper';
-import { faEdit,faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faEdit,faSpinner,faTrash } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-list',
@@ -15,6 +15,8 @@ export class ListComponent implements OnInit {
   metaData = {};
   faEdit=faEdit
   faTrash=faTrash
+  faSpinner = faSpinner
+  loader = false
   constructor(
     public momentService: MomentService,
     public router: Router,
@@ -29,15 +31,19 @@ export class ListComponent implements OnInit {
   }
 
   getAllMoment() {
+    this.loader = true
     this.momentService.getMomentList().subscribe(
       (result) => {
+        this.loader = false
         if (result && result.status === 200) {
           this.momentData = result.response;
         } else {
           this.toastr.info('', result.message, toasterConfig);
         }
       },
-      (error) => {}
+      (error) => {
+        this.loader = false
+      }
     );
   }
 

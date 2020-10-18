@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { toasterConfig } from '../../../global/helper';
 import { MomentService } from 'src/services/moment.service';
+import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 @Component({
   selector: 'app-add',
   templateUrl: './add.component.html',
@@ -14,6 +15,8 @@ export class AddComponent implements OnInit {
   fileInput;
   showError = false;
   base64: any;
+  faSpinner = faSpinner;
+  loader = false;
   constructor(
     public momentService: MomentService,
     public router: Router,
@@ -39,7 +42,7 @@ export class AddComponent implements OnInit {
 
   validateForm(form) {
     let formisValid = true;
-    if (!this.fileInput || !form.value.tags ||!form.value.comment) {
+    if (!this.fileInput || !form.value.tags || !form.value.comment) {
       this.toastr.error('', 'All the fields are required', toasterConfig);
       formisValid = false;
     }
@@ -50,8 +53,10 @@ export class AddComponent implements OnInit {
       const formData: FormData = new FormData();
       formData.append('data', JSON.stringify(f.value));
       formData.append('image', this.fileInput, this.fileInput.name);
+      this.loader = true;
       this.momentService.createMomentService(formData).subscribe(
         (result) => {
+          this.loader = false;
           if (result && result.status === 200) {
             this.router.navigate(['/list-moment']);
             this.toastr.info('', result.message, toasterConfig);
@@ -60,6 +65,7 @@ export class AddComponent implements OnInit {
           }
         },
         (error) => {
+          this.loader = false;
           this.toastr.error('', 'Service Failed', toasterConfig);
         }
       );

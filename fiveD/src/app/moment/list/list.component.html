@@ -29,6 +29,7 @@
                             <fa-icon [icon]="faTrash" class="delete-icon" (click)="deleteMoment(item._id)"></fa-icon>
                             </td>
                         </tr>
+                        <tr *ngIf="loader" class="text-center"><td colspan="6"> <fa-icon [icon]="faSpinner" class="edit-icon mr-2"></fa-icon> Loading...</td></tr>
                     </tbody>
                 </table>
             </div>
