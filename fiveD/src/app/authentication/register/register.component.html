@@ -23,8 +23,8 @@
                             <input type="password" name="password" class="form-control custom-input" ngModel required
                                 #email="ngModel" placeholder="Password" />
                         </div>
-                        <div class="form-group">
-                            <button type="submit" class="btn custom-login-button mr-4"> <fa-icon *ngIf="loader" [icon]="faSpinner" class="edit-icon mr-2"></fa-icon> Sign Up</button>
+                        <div class="form-group register-buttons">
+                            <button type="submit" class="btn custom-login-button mr-4"> <fa-icon *ngIf="loader" [icon]="faSpinner" class="spinner-icon mr-2"></fa-icon> Sign Up</button>
                             <a [routerLink]="['']" class="custom-login-link">
                                 Already Created Account? <span><a >Login</a></span>
                             </a>
