@@ -13,7 +13,7 @@ import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 })
 export class LoginComponent implements OnInit {
   userData = {};
-  loader = false
+  loader = false;
   faSpinner = faSpinner;
 
   constructor(
@@ -26,9 +26,9 @@ export class LoginComponent implements OnInit {
 
   // Login request to api
   onSubmit = (f: NgForm) => {
-    this.loader = true
+    this.loader = true;
     this.authService.loginService(f.value).subscribe((result) => {
-      this.loader = false
+      this.loader = false;
       if (result && result.status === 200) {
         localStorage.setItem('AUTH_TOKEN', result.response.accessToken);
         localStorage.setItem('AUTH_EMAIL', result.response.email);
@@ -37,7 +37,7 @@ export class LoginComponent implements OnInit {
         this.toastr.error('', result.message, toasterConfig);
       }
       (error) => {
-        this.loader = false
+        this.loader = false;
         this.toastr.error('', 'Service Failed', toasterConfig);
       };
     });
