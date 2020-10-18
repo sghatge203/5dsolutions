@@ -60,9 +60,8 @@ const getListOfMoments = (req, res) => {
         }
         else {
             list.forEach(element => {
-                element['image'] = process.env.IMAGE_API + 'moments/' + element.image
+                element['image'] = process.env.IMAGE_API + element.image
             });
-            console.log('listData', list)
             return res.status(200).send({
                 status: 200,
                 message: "Successfully fetched all moments.",
@@ -92,7 +91,6 @@ const updateMoment = (req, res) => {
                 var savePath = './public/moments/';
                 var singleImage = file
                 savePath += singleImage.originalFilename;
-                console.log('savepath',savePath)
                 readAndWriteFile(singleImage, savePath);
                 return res.status(200).send({
                     status: 200,
@@ -144,7 +142,7 @@ const getMomentById = (req, res) => {
             })
         }
         else {
-            data['image'] = process.env.IMAGE_API + 'moments/' + data.image
+            data['image'] = process.env.IMAGE_API + data.image
             return res.status(200).send({
                 status: 200,
                 message: "Successfully fetched Moment",
